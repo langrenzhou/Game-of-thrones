@@ -1,0 +1,59 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\愚忠\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add sha1
+
+PATH: 
+  C:\MinGW\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\WINDOWS\system32\config\systemprofile\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm\;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\nodejs\;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Node.js;C:\Users\愚忠\AppData\Roaming\npm;C:\Users\愚忠\AppData\Local\Programs\Fiddler;C:\Users\愚忠\Desktop;C:\Users\愚忠\Desktop\fiddler;C:\Users\愚忠\AppData\Local\Programs\Microsoft VS Code\bin;
+
+Yarn version: 
+  1.19.2
+
+Node version: 
+  10.16.3
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: ENOENT: no such file or directory, copyfile 'C:\Users\愚忠\AppData\Local\Yarn\Cache\v6\npm-ms-2.1.2-d09d1f357b443f493382a8eb3ccd183872ae6009-integrity\node_modules\ms\license.md' -> 'C:\Users\愚忠\Desktop\冰与火之歌项目\ice\node_modules\@babel\core\node_modules\ms\license.md'
+
+npm manifest: 
+  {
+    "name": "ice",
+    "version": "1.1.0",
+    "description": "Nuxt.js project",
+    "author": "",
+    "private": true,
+    "scripts": {
+      "dev": "backpack dev",
+      "build": "nuxt build && backpack build",
+      "start": "cross-env NODE_ENV=production node build/main.js",
+      "precommit": "npm run lint",
+      "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
+    },
+    "dependencies": {
+      "cross-env": "^5.0.1",
+      "koa": "^2.4.1",
+      "nuxt": "latest",
+      "source-map-support": "^0.4.15"
+    },
+    "devDependencies": {
+      "babel-eslint": "^7.1.1",
+      "backpack-core": "^0.8.3",
+      "eslint": "^3.19.0",
+      "eslint-loader": "^2.1.1",
+      "eslint-config-standard": "^10.2.1",
+      "eslint-plugin-html": "^2.0.3",
+      "eslint-plugin-import": "^2.2.0",
+      "eslint-plugin-node": "^4.2.2",
+      "eslint-plugin-promise": "^3.4.0",
+      "eslint-plugin-standard": "^3.0.1",
+      "nodemon": "^1.11.0",
+      "scmp": "^2.0.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

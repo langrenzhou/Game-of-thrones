@@ -1,33 +1,51 @@
+
 import Koa from 'koa'
-import { Nuxt, Builder } from 'nuxt'
+import Nuxt from 'nuxt'
+import R from 'ramda'
+import { resolve } from 'path'
+let config = require('../nuxt.config.js')
+config.dev = !(process.env === 'production')
+const r=path=>resolve(__dirname,path)
+const host = process.env.HOST || '127.0.0.1'
+const port = process.env.PORT || 3000
+const MODDLEWHRES = ['router']
 
-async function start () {
-  const app = new Koa()
-  const host = process.env.HOST || '127.0.0.1'
-  const port = process.env.PORT || 3000
-
-  // Import and Set Nuxt.js options
-  const config = require('../nuxt.config.js')
-  config.dev = !(app.env === 'production')
-
-  // Instantiate nuxt.js
-  const nuxt = new Nuxt(config)
-
-  // Build in development
-  if (config.dev) {
-    const builder = new Builder(nuxt)
-    await builder.build()
+class Serve {
+  constructor() {
+    this.app = new Koa()
+    this.useMiddelwhre(this.app)(MODDLEWHRES)
   }
+  useMiddelwhre(app) {
+   return R.map(R.compose(
+     R.map(i=>i(app)),
+     require,
+      i=>`${r('./middlewares')}/${i}`
+   ))
+  } 
+  async start() {
+    const nuxt =await new Nuxt(config)
+    // Build in development
+    if (config.dev) {
+        try{
+          await nuxt.build()
+        }catch(e){
+              console.error(e)
+              process.exit(1)
+        }
+    }
 
-  app.use(ctx => {
-    ctx.status = 200
-    ctx.respond = false // Mark request as handled for Koa
-    ctx.req.ctx = ctx // This might be useful later on, e.g. in nuxtServerInit or with nuxt-stash
-    nuxt.render(ctx.req, ctx.res)
-  })
+   this.app.use(async (ctx,next) => {
+      ctx.status = 200
+     await nuxt.render(ctx.req, ctx.res)
+    })
 
-  app.listen(port, host)
-  console.log('Server listening on ' + host + ':' + port) // eslint-disable-line no-console
+    this.app.listen(port, host)
+    console.log('Server listening on ' + host + ':' + port) // eslint-disable-line no-console
+  }
 }
 
-start()
+
+
+const app = new Serve()
+
+app.start()

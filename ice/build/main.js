@@ -153,6 +153,25 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./server sync recursive":
+/*!*********************!*\
+  !*** ./server sync ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function webpackEmptyContext(req) {
+	var e = new Error("Cannot find module '" + req + "'");
+	e.code = 'MODULE_NOT_FOUND';
+	throw e;
+}
+webpackEmptyContext.keys = function() { return []; };
+webpackEmptyContext.resolve = webpackEmptyContext;
+module.exports = webpackEmptyContext;
+webpackEmptyContext.id = "./server sync recursive";
+
+/***/ }),
+
 /***/ "./server/index.js":
 /*!*************************!*\
   !*** ./server/index.js ***!
@@ -162,42 +181,64 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var koa__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! koa */ "koa");
+/* WEBPACK VAR INJECTION */(function(__dirname) {/* harmony import */ var koa__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! koa */ "koa");
 /* harmony import */ var koa__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(koa__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var nuxt__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! nuxt */ "nuxt");
 /* harmony import */ var nuxt__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(nuxt__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ramda */ "ramda");
+/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(ramda__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! path */ "path");
+/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(path__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
-async function start() {
-  const app = new koa__WEBPACK_IMPORTED_MODULE_0___default.a();
-  const host = process.env.HOST || '127.0.0.1';
-  const port = process.env.PORT || 3000; // Import and Set Nuxt.js options
 
-  const config = __webpack_require__(/*! ../nuxt.config.js */ "./nuxt.config.js");
 
-  config.dev = !(app.env === 'production'); // Instantiate nuxt.js
+let config = __webpack_require__(/*! ../nuxt.config.js */ "./nuxt.config.js");
 
-  const nuxt = new nuxt__WEBPACK_IMPORTED_MODULE_1__["Nuxt"](config); // Build in development
+config.dev = !(process.env === 'production');
 
-  if (config.dev) {
-    const builder = new nuxt__WEBPACK_IMPORTED_MODULE_1__["Builder"](nuxt);
-    await builder.build();
+const r = path => Object(path__WEBPACK_IMPORTED_MODULE_3__["resolve"])(__dirname, path);
+
+const host = process.env.HOST || '127.0.0.1';
+const port = process.env.PORT || 3000;
+const MODDLEWHRES = ['router'];
+
+class Serve {
+  constructor() {
+    this.app = new koa__WEBPACK_IMPORTED_MODULE_0___default.a();
+    this.useMiddelwhre(this.app)(MODDLEWHRES);
   }
 
-  app.use(ctx => {
-    ctx.status = 200;
-    ctx.respond = false; // Mark request as handled for Koa
+  useMiddelwhre(app) {
+    return ramda__WEBPACK_IMPORTED_MODULE_2___default.a.map(ramda__WEBPACK_IMPORTED_MODULE_2___default.a.compose(ramda__WEBPACK_IMPORTED_MODULE_2___default.a.map(i => i(app)), __webpack_require__("./server sync recursive"), i => `${r('./middlewares')}/${i}`));
+  }
 
-    ctx.req.ctx = ctx; // This might be useful later on, e.g. in nuxtServerInit or with nuxt-stash
+  async start() {
+    const nuxt = await new nuxt__WEBPACK_IMPORTED_MODULE_1___default.a(config); // Build in development
 
-    nuxt.render(ctx.req, ctx.res);
-  });
-  app.listen(port, host);
-  console.log('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
+    if (config.dev) {
+      try {
+        await nuxt.build();
+      } catch (e) {
+        console.error(e);
+        process.exit(1);
+      }
+    }
+
+    this.app.use(async (ctx, next) => {
+      ctx.status = 200;
+      await nuxt.render(ctx.req, ctx.res);
+    });
+    this.app.listen(port, host);
+    console.log('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
+  }
+
 }
 
-start();
+const app = new Serve();
+app.start();
+/* WEBPACK VAR INJECTION */}.call(this, "server"))
 
 /***/ }),
 
@@ -220,6 +261,28 @@ module.exports = require("koa");
 /***/ (function(module, exports) {
 
 module.exports = require("nuxt");
+
+/***/ }),
+
+/***/ "path":
+/*!***********************!*\
+  !*** external "path" ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("path");
+
+/***/ }),
+
+/***/ "ramda":
+/*!************************!*\
+  !*** external "ramda" ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("ramda");
 
 /***/ })
 
