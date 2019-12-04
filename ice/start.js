@@ -1,4 +1,4 @@
-require("babel-core/register")({
+require(`babel-core/register`)({
     'presets':[
         'stage-3',
         'latest-node'

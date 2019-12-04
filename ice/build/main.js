@@ -192,7 +192,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
+ // Import and Set Nuxt.js options
 
 let config = __webpack_require__(/*! ../nuxt.config.js */ "./nuxt.config.js");
 
@@ -202,24 +202,25 @@ const r = path => Object(path__WEBPACK_IMPORTED_MODULE_3__["resolve"])(__dirname
 
 const host = process.env.HOST || '127.0.0.1';
 const port = process.env.PORT || 3000;
-const MODDLEWHRES = ['router'];
+const MODDELWARES = [];
 
-class Serve {
+class Server {
   constructor() {
     this.app = new koa__WEBPACK_IMPORTED_MODULE_0___default.a();
-    this.useMiddelwhre(this.app)(MODDLEWHRES);
+    this.useMiddleWares(this.app)(MODDELWARES);
   }
 
-  useMiddelwhre(app) {
-    return ramda__WEBPACK_IMPORTED_MODULE_2___default.a.map(ramda__WEBPACK_IMPORTED_MODULE_2___default.a.compose(ramda__WEBPACK_IMPORTED_MODULE_2___default.a.map(i => i(app)), __webpack_require__("./server sync recursive"), i => `${r('./middlewares')}/${i}`));
+  useMiddleWares(app) {
+    return ramda__WEBPACK_IMPORTED_MODULE_2___default.a.map(ramda__WEBPACK_IMPORTED_MODULE_2___default.a.compose(ramda__WEBPACK_IMPORTED_MODULE_2___default.a.map(i => i(app)), __webpack_require__("./server sync recursive"), i => `${r('./middleware')}/${i}`));
   }
 
   async start() {
+    // Instantiate nuxt.js
     const nuxt = await new nuxt__WEBPACK_IMPORTED_MODULE_1___default.a(config); // Build in development
 
     if (config.dev) {
       try {
-        await nuxt.build();
+        await nuxt.bulid();
       } catch (e) {
         console.error(e);
         process.exit(1);
@@ -236,7 +237,7 @@ class Serve {
 
 }
 
-const app = new Serve();
+const app = new Server();
 app.start();
 /* WEBPACK VAR INJECTION */}.call(this, "server"))
 
