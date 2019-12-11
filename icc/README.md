@@ -1,4 +1,4 @@
-# ice
+# icc
 
 > Nuxt.js project
 

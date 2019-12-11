@@ -6,17 +6,39 @@ module.exports = {
     title: 'starter',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  scripts: [
+   {
+     src: 'http://res.wx.qq.com/open/js/jweixin-1.2.0.js'
+   },
+   {
+     src: 'http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js'
+   }
+  ],
   /*
   ** Global CSS
   */
-  css: ['~static/css/main.css'],
+ css: [
+  {
+    src: 'static/sass/index.sass',
+    lang: 'sass?indentedSyntax=true'
+  },
+  {
+    src: 'swiper/dist/css/swiper.css'
+  }
+],
+
+plugins: [
+  {
+    src: '@/plugins/swiper.js',
+    ssr: false
+  }
+],
   /*
   ** Customize the progress-bar color
   */
